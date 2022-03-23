@@ -353,12 +353,16 @@ a {
     top: -100%;
     position: absolute;
 }
+.cancel{
+    transition: .5s;
+}
 
 .receipt__window-out {
     flex-grow: 1;
     align-self: stretch;
     padding: 15px;
     white-space: pre-wrap;
+
 }
 
 .receipt__window-btn {

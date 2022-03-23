@@ -65,7 +65,8 @@ const btnPlusOrMinus = document.querySelectorAll('.main__product-btn'),
     receiptOut = document.querySelector('.receipt__window-out'),
     receipt__window = document.querySelector('.receipt__window'),
     btnReceipt = document.querySelector('.receipt__window-btn'),
-    timerHeader = document.querySelector('.header__timer-extra'),
+    cancel = document.querySelector('.cancel');
+timerHeader = document.querySelector('.header__timer-extra'),
     btnImg = document.querySelectorAll('.img-none');
 let timerCount = 0;
 
@@ -127,7 +128,7 @@ let arrayProduct = [],
 
 addCart.addEventListener('click', function () {
     for (const key in product) {
-        const po = product[key]
+        const po = JSON.parse(JSON.stringify(product[key]))
         if (po.amount > 0) {
             arrayProduct.push(po);
         }
@@ -144,10 +145,10 @@ addCart.addEventListener('click', function () {
         const el = arrayProduct[i]
         totalPrice += el.price
         totalKcall += el.kcall
-        totalName += '\n' + el.name
+        totalName += '\n' + el.name + '\n'
 
     }
-    receiptOut.innerHTML = `Вы заказали: \n ${totalName}\nКаллорийность: ${totalKcall}\nОбщая сумма заказа: ${totalPrice}сум`;
+    receiptOut.innerHTML = `Вы заказали: \n ${totalName}\nКаллорийность: ${totalKcall}\nОбщая сумма заказа: ${totalPrice} сум`;
     receipt.style.display = 'flex'
     setTimeout(() => {
         receipt.style.opacity = '1'
@@ -159,6 +160,21 @@ addCart.addEventListener('click', function () {
 })
 btnReceipt.addEventListener('click', function () {
     location.reload();
+})
+cancel.addEventListener('click', function () {
+    receiptOut.innerHTML = ``;
+    arrayProduct = [];
+    totalName = '';
+    totalPrice = 0;
+    totalKcall = 0;
+    setTimeout(() => {
+        receipt__window.style.top = '-100%'
+    }, 60)
+    setTimeout(() => {
+        receipt.style.opacity = '0'
+        receipt.style.backdropFilter = 'none'
+        receipt.style.display = 'none'
+    }, 500)
 })
 
 function timer() {
